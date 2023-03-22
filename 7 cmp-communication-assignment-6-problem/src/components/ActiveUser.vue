@@ -1,8 +1,8 @@
 <template>
-  <li>
+  <div class="w-50 card">
     <h2>{{ name }}</h2>
-    <h3>{{ age }}</h3>
-  </li>
+    <h3>{{ age }} Age</h3>
+  </div>
 </template>
 
 <script>

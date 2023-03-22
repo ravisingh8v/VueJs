@@ -26,10 +26,10 @@ export default {
   },
   methods: {
     submitData() {
-      this.$emit("add-data", { name: this.enteredName, age: this.enteredAge });
-      (this.enteredName = ""), (this.enteredAge = "");
-
+      this.$emit("add-data", this.enteredName, this.enteredAge);
+      // (this.enteredName = ""), (this.enteredAge = "");
       document.getElementById("form").reset();
+      console.log(this.enteredName, this.enteredAge);
     },
   },
 };

@@ -4,17 +4,7 @@
       <user-data @add-data="addData"></user-data>
     </div>
     <div class="d-flex justify-center mt-5">
-      <div class="mt-5 w-50">
-        <h3>User list</h3>
-        <ul class="mt-4 card">
-          <active-user
-            v-for="user in users"
-            :key="user.name"
-            :name="user.name"
-            :age="user.age"
-          ></active-user>
-        </ul>
-      </div>
+      <active-user :name="user.name" :age="user.age"></active-user>
     </div>
   </div>
 </template>
@@ -23,15 +13,20 @@
 export default {
   data() {
     return {
-      users: [],
+      user: {
+        name: "ravi",
+        age: "21",
+      },
     };
   },
   methods: {
-    addData(user) {
-      if (user.name && user.age) {
-        this.users.push(user);
+    addData(name, age) {
+      if (name && age) {
+        this.user = {
+          name: name,
+          age: age,
+        };
       }
-      console.log(this.users);
     },
   },
 };
@@ -127,15 +122,13 @@ h3,
 h4,
 h5 {
   color: rgb(25, 46, 107);
-  background-color: rgba(24, 24, 26, 0.178);
+  /* background-color: rgba(24, 24, 26, 0.178); */
 }
+
 .card {
-  border: 1px solid red;
-  padding: 5px;
-}
-.card li {
-  padding: 5px;
   background-color: aliceblue;
+  padding: 10px;
+  font-size: 30px;
   box-shadow: 2px 0px 5px 2px grey;
 }
 </style>
