@@ -1,32 +1,30 @@
 <template>
+  <the-header title="RemeberMe"></the-header>
   <div>
-    <LearningList :learningResources="learningResources" />
+    <the-resources></the-resources>
   </div>
 </template>
 
 <script>
-import LearningList from "./components/learning-resources/LearningResources.vue";
+import TheHeader from "./components/layout/TheHeader.vue";
+import TheResources from "./components/learning-resources/TheResources.vue";
+
 export default {
-  components: { LearningList },
+  components: { TheHeader, TheResources },
   data() {
-    return {
-      learningResources: [
-        {
-          id: "1",
-          title: "google",
-          description: "google it for learn...",
-          link: "https://www.google.com",
-        },
-        {
-          id: 2,
-          title: "W3S",
-          description: "w3s is  also best platform",
-          link: "https://www.w3schools.com",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>
 
-<style></style>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+</style>

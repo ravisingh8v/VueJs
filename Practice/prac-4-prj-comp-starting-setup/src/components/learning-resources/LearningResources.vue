@@ -1,31 +1,31 @@
 <template>
   <ul>
     <learning-Element
-      v-for="learningResource in learningResources"
+      v-for="learningResource in resources"
       :key="learningResource.id"
       :id="learningResource.id"
       :title="learningResource.title"
       :description="learningResource.description"
       :link="learningResource.link"
     ></learning-Element>
-    <!-- <span>{{ id }}</span>
-    <span>{{ title }}</span>
-    <span>{{ description }}</span>
-    <span><a v-bind:href="link">learn More</a></span> -->
   </ul>
 </template>
+
 <script>
 import LearningElement from "./LearningElement.vue";
 
 export default {
+  inject: ["resources"],
   components: { LearningElement },
-  props: ["learningResources"],
+  methods: {},
 };
 </script>
+
 <style scoped>
 ul {
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
+  width: 600px;
 }
 </style>
