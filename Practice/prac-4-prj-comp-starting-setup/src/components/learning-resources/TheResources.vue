@@ -56,14 +56,22 @@ export default {
       this.selectedResources = com;
     },
     addResorce(res) {
+ //   if we deleted whole array and after that we adding one resource so it will dont find the id so this code help in that 
       if (res.title && res.link && res.description) {
-        const id = this.Resources[this.Resources.length - 1].id + 1;
+      let id;
+      if(this.Resources.length>0){                     
+         id = this.Resources[this.Resources.length - 1].id + 1;
+      }else{
+       id = 1;
+      }
+
         const newres = {
           id: id,
           title: res.title,
           description: res.description,
           link: res.link,
         };
+        console.log(newres)
         this.Resources.push(newres);
         this.Resources[this.Resources.length - 1];
         this.selectedResources = "learning-resources";
