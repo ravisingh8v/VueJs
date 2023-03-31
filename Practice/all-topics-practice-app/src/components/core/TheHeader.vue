@@ -35,6 +35,16 @@
               >HTTP</a
             >
           </li>
+          <li class="nav-item">
+            <a
+              href="javascript:void(0)"
+              :class="{ active: active === 'the-router' }"
+              class="nav-link"
+              aria-current="page"
+              @click="activeLink('the-router')"
+              >Router</a
+            >
+          </li>
         </ul>
       </div>
     </div>

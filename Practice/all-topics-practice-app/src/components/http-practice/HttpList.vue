@@ -18,21 +18,34 @@
     </span>
     <span
       class="delete-icon bi bi-x-circle-fill"
-      @click="$emit('deleteUser', id)"
+      @click="$emit('deleteUser', id), (loading = true)"
     ></span>
     <span
       class="edit-icon bi bi-pencil-square"
       @click="$emit('editUser', id)"
     ></span>
+    <div class="list-overlay" v-if="loading"></div>
   </li>
 </template>
 <script>
 export default {
   props: ["id", "username", "message", "rating", "error"],
+  data() {
+    return {
+      loading: false,
+    };
+  },
   mounted() {},
 };
 </script>
 <style>
+.list-overlay {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
 .delete-icon {
   position: absolute;
   top: -10px;

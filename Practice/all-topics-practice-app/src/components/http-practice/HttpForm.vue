@@ -78,6 +78,7 @@ export default {
   inject: ["getListData"],
   data() {
     return {
+      id: "",
       enteredUsername: "",
       enteredMessage: "",
       seletedRating: null,
@@ -89,40 +90,71 @@ export default {
     submitForm() {
       // this emit for getting data in form when we are submitForm
       //   this.$emit("getData");
-      if (this.enteredUsername && this.enteredMessage && this.seletedRating) {
-        this.loading = true;
+      /* 
+      if edit  function call this id we wil get and then patch data funtion works
+      */
+      if (this.id) {
+        console.log(this.id);
         fetch(
-          "https://vue-practice-2b7ca-default-rtdb.firebaseio.com/ratings.json",
+          `https://vue-practice-2b7ca-default-rtdb.firebaseio.com/ratings/` +
+            this.id +
+            `.json`,
           {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            method: "PATCH",
             body: JSON.stringify({
               username: this.enteredUsername,
               message: this.enteredMessage,
               rating: this.seletedRating,
             }),
           }
-        )
-          .then((res) => {
-            if (res.ok) {
-              this.enteredUsername = "";
-              this.enteredMessage = "";
-              this.seletedRating = null;
-              this.error = "";
-              console.log(res);
-              this.loading = false;
-              this.getListData();
-            }
-          })
-          .catch((error) => {
-            console.log(error.message);
-            this.loading = false;
-            this.error = "something went wrong - please try again later!";
-          });
+        ).then((res) => {
+          if (res.ok) this.enteredUsername = "";
+          this.enteredMessage = "";
+          this.seletedRating = null;
+          this.id = "";
+          this.getListData();
+          console.log(res);
+        });
+        /*
+        // if id not found then the post data funtion will call 
+        */
       } else {
-        this.error = "please enter your details";
+        // this condition check if the user do not fill specific fields
+        if (this.enteredUsername && this.enteredMessage && this.seletedRating) {
+          this.loading = true;
+          fetch(
+            "https://vue-practice-2b7ca-default-rtdb.firebaseio.com/ratings.json",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username: this.enteredUsername,
+                message: this.enteredMessage,
+                rating: this.seletedRating,
+              }),
+            }
+          )
+            .then((res) => {
+              if (res.ok) {
+                this.enteredUsername = "";
+                this.enteredMessage = "";
+                this.seletedRating = null;
+                this.error = "";
+                console.log(res);
+                this.loading = false;
+                this.getListData();
+              }
+            })
+            .catch((error) => {
+              console.log(error.message);
+              this.loading = false;
+              this.error = "something went wrong - please try again later!";
+            });
+        } else {
+          this.error = "please enter your details";
+        }
       }
     },
   },
@@ -133,6 +165,7 @@ export default {
       }
     },
     editUserData() {
+      this.id = this.editUserData.id;
       this.enteredUsername = this.editUserData.username;
       this.enteredMessage = this.editUserData.message;
       this.seletedRating = this.editUserData.rating;

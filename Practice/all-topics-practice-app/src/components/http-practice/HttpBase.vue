@@ -50,7 +50,7 @@ export default {
         .then((res) => {
           const result = [];
           for (const id in res) {
-            result.push({
+            result.unshift({
               id: id,
               username: res[id].username,
               message: res[id].message,
@@ -99,13 +99,19 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.editUserData = res;
+          this.editUserData = {
+            id: id,
+            username: res.username,
+            message: res.message,
+            rating: res.rating,
+          };
         })
         .catch((error) => {
           console.log(error);
         });
     },
   },
+
   mounted() {
     this.getData();
   },
