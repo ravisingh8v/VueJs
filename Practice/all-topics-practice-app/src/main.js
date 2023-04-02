@@ -8,6 +8,7 @@ import TheRouter from "./components/router-practice/TheRouter.vue";
 import TeamsList from "./components/router-practice/teams/TeamsList.vue";
 import UsersList from "./components/router-practice/users/UsersList.vue";
 import BaseList from "./components/router-practice/UI/BaseList.vue";
+import TeamMember from './components/router-practice/teams/TeamMember.vue'
 const app = createApp(App);
 
 const router = createRouter({
@@ -19,7 +20,9 @@ const router = createRouter({
       component: TheRouter,
       children: [
         { path: "", redirect: "the-router/teams-list" },
-        { path: "teams-list", component: TeamsList },
+        { path: "teams-list", component: TeamsList, children:[ {path:":id",component:TeamMember}] },
+       
+        // { path: 'team-member', component: TeamMember },
         { path: "users-list", component: UsersList },
       ],
     },
