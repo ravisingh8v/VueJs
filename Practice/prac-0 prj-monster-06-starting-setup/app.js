@@ -10,12 +10,20 @@ Vue.createApp({
   },
 
   methods: {
-    // get random value for attack and heal
+    /**
+     * Generating random value by getting input from function
+     * @param {*} min
+     * @param {*} max
+     * @returns
+     * get random value for attack and heal
+     */
     getRandomValue(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
     },
 
-    // start new game button
+    /**
+     * start new game function
+     */
     startGame() {
       this.playerHealth = 100;
       this.monsterHealth = 100;
@@ -31,11 +39,11 @@ Vue.createApp({
       this.monsterHealth -= attackValue;
       console.log(this.monsterHealth);
       this.battleLogs("player", "attack", attackValue);
-      this.mnonsterAttack();
+      this.monsterAttack();
     },
 
-    // monster attack funtion
-    mnonsterAttack() {
+    // monster attack function
+    monsterAttack() {
       const attackValue = this.getRandomValue(8, 15);
       this.playerHealth -= attackValue;
       this.battleLogs("monster", "attack", attackValue);
@@ -48,7 +56,7 @@ Vue.createApp({
       const attackValue = this.getRandomValue(10, 25);
       this.battleLogs("player", "attack", attackValue);
       this.monsterHealth -= attackValue;
-      this.mnonsterAttack();
+      this.monsterAttack();
     },
 
     // heal button
@@ -61,7 +69,7 @@ Vue.createApp({
         this.playerHealth += healValue;
       }
       this.battleLogs("player", "heal", healValue);
-      this.mnonsterAttack();
+      this.monsterAttack();
     },
 
     // surrender button
@@ -107,7 +115,7 @@ Vue.createApp({
   },
 
   watch: {
-    // to set winner keeping eye on playerhealth
+    // to set winner keeping eye on playerHealth
     playerHealth(value) {
       if (value <= 0 && this.monsterHealth <= 0) {
         this.winner = "draw";
@@ -116,7 +124,7 @@ Vue.createApp({
       }
     },
 
-    // to set winner keeping eye on monsterhealth
+    // to set winner keeping eye on monsterHealth
     monsterHealth(value) {
       if (value <= 0 && this.playerHealth <= 0) {
         this.winner = "draw";

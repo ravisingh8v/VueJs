@@ -1,9 +1,12 @@
 <template>
+  <!-- header -->
   <header>
     <h1>hello Add New friends</h1>
   </header>
+  <!-- adding form selector  -->
   <new-friend @add-data="addData"></new-friend>
   <ul>
+    <!-- friend list selector  -->
     <!-- <friend-contact name="ravi" phone-number="646444454454"></friend-contact> -->
     <friend-contact
       v-for="friend in friends"
@@ -22,6 +25,7 @@
 export default {
   data() {
     return {
+      // friendList
       friends: [
         {
           name: "ravi",
@@ -38,12 +42,23 @@ export default {
       ],
     };
   },
+
   methods: {
+    /**
+     * Toggle favorite
+     * @param {*} name
+     */
     addFavorite(name) {
       let identify = this.friends.find((res) => res.name === name);
       identify.isFavorite = !identify.isFavorite;
     },
 
+    /**
+     * pushing data from form to the list
+     * @param {*} name
+     * @param {*} phone
+     * @param {*} email
+     */
     addData(name, phone, email) {
       const newFriendContact = {
         name: name,
@@ -53,12 +68,19 @@ export default {
       };
       this.friends.push(newFriendContact);
     },
+
+    /**
+     * delete list data
+     * @param {*} data
+     */
     deleteFriend(data) {
       this.friends = this.friends.filter((friend) => friend.name !== data);
     },
   },
 };
 </script>
+
+<!-- provided style by course  -->
 <style>
 * {
   box-sizing: border-box;

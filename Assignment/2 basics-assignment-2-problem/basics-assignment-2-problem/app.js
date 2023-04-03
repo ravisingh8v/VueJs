@@ -6,8 +6,9 @@ Vue.createApp({
     };
   },
   methods: {
+    // showing alert on click
     showAlert() {
-      alert("this is a alrt msg");
+      alert("this is a alert message");
     },
     keydown(event) {
       this.output1 = event.target.value;

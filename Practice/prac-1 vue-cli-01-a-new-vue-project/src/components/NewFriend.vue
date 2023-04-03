@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
+    <!-- Name -->
     <div>
       <label for="name">Name</label>
       <input
@@ -10,6 +11,7 @@
         v-model="enteredName"
       />
     </div>
+    <!-- phone  -->
     <div>
       <label for="phone">Phone</label>
       <input
@@ -20,6 +22,7 @@
         v-model="enteredPhone"
       />
     </div>
+    <!-- Email  -->
     <div>
       <label for="email">Email</label>
       <input
@@ -30,6 +33,7 @@
         v-model="enteredEmail"
       />
     </div>
+    <!-- Submit  -->
     <div>
       <button type="submit">Submit</button>
     </div>
@@ -39,6 +43,7 @@
 <script>
 export default {
   emits: ["add-data"],
+
   data() {
     return {
       enteredName: "",
@@ -46,7 +51,11 @@ export default {
       enteredEmail: "",
     };
   },
+
   methods: {
+    /**
+     * passing data to parent
+     */
     submitForm() {
       this.$emit(
         "add-data",
