@@ -5,7 +5,7 @@
     title="Invalid input"
   >
     <template #default>
-      <p>atleast one input value is valid</p>
+      <p>at-least one input value is valid</p>
       <p>please check your input</p>
     </template>
     <template #action>

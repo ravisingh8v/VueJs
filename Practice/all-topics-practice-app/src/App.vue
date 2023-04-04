@@ -1,10 +1,11 @@
 <template>
   <TheHeader @activeLink="activeLink" :active="activeComponent"></TheHeader>
   <!-- <TheForm></TheForm> -->
-  <KeepAlive v-if="false">
+  <!-- v-if="false" -->
+  <KeepAlive>
     <component :is="activeComponent"></component>
   </KeepAlive>
-  <RouterView></RouterView>
+  <!-- <RouterView></RouterView> -->
 </template>
 
 <script>

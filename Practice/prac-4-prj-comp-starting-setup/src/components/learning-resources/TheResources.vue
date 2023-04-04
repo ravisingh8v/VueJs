@@ -28,14 +28,14 @@ export default {
       selectedResources: "learning-resources",
       Resources: [
         {
-          id: 1,
+          id: 0,
           title: "google",
           description:
-            "google it for learn it isbest site to learn something...",
+            "google it for learn it is best site to learn something...",
           link: "https://www.google.com",
         },
         {
-          id: 2,
+          id: 0,
           title: "W3S",
           description:
             "w3s is  also best platform here you can get all the courses for free",
@@ -47,7 +47,7 @@ export default {
   provide() {
     return {
       resources: this.Resources,
-      addData: this.addResorce,
+      addData: this.addResource,
       deleteItem: this.deleteItem,
     };
   },
@@ -55,15 +55,15 @@ export default {
     setSelectedComponent(com) {
       this.selectedResources = com;
     },
-    addResorce(res) {
- //   if we deleted whole array and after that we adding one resource so it will dont find the id so this code help in that 
+    addResource(res) {
+      //   if we deleted whole array and after that we adding one resource so it will don't find the id so this code help in that
       if (res.title && res.link && res.description) {
-      let id;
-      if(this.Resources.length>0){                     
-         id = this.Resources[this.Resources.length - 1].id + 1;
-      }else{
-       id = 1;
-      }
+        let id;
+        if (this.Resources.length > 0) {
+          id = this.Resources[this.Resources.length - 1].id + 1;
+        } else {
+          id = 1;
+        }
 
         const newres = {
           id: id,
@@ -71,7 +71,7 @@ export default {
           description: res.description,
           link: res.link,
         };
-        console.log(newres)
+        console.log(newres);
         this.Resources.push(newres);
         this.Resources[this.Resources.length - 1];
         this.selectedResources = "learning-resources";
