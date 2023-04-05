@@ -2,12 +2,25 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import TheHome from './../components/TheHome.vue'
 // import App from './App.vue'
 
+import TheAbout from './../components/TheAbout.vue'
+import TheUsers from './../components/users/TheUsers.vue'
+import UsersForm from './../components/users/UsersForm.vue'
+import UsersList from './../components/users/UsersList.vue'
+
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '',
+    path: '/',
     redirect: 'home',
   },
-  { name: 'home', path: '/home', component: TheHome }
+  { path: '/home', component: TheHome },
+  {
+    path: '/users', component: TheUsers, children: [
+      { path: "", redirect: "users/users-form" },
+      { name: 'users-form', path: 'users-form', component: UsersForm },
+      { name: 'users-list', path: 'users-list', component: UsersList }
+    ]
+  },
+  { name: 'about', path: '/about', component: TheAbout }
   // {
   //   path: '/about',
   //   name: 'about',
@@ -20,7 +33,8 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  linkActiveClass: 'active'
 })
 
 export default router
