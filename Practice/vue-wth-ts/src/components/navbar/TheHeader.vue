@@ -22,6 +22,12 @@
             <RouterLink to="/users" class="nav-link">Users</RouterLink>
           </li>
           <li class="nav-item">
+            <RouterLink to="/vuex" class="nav-link">Vuex</RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink to="/calendar" class="nav-link">Calendar</RouterLink>
+          </li>
+          <li class="nav-item">
             <RouterLink to="/about" class="nav-link">About</RouterLink>
           </li>
         </ul>

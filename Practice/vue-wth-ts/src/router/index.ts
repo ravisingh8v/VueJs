@@ -6,6 +6,8 @@ import TheAbout from './../components/TheAbout.vue'
 import TheUsers from './../components/users/TheUsers.vue'
 import UsersForm from './../components/users/UsersForm.vue'
 import UsersList from './../components/users/UsersList.vue'
+import BaseVuex from './../components/vuex/BaseVuex.vue'
+import TheCalendar from './../components/TheCalendar.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,7 +22,9 @@ const routes: Array<RouteRecordRaw> = [
       { name: 'users-list', path: 'users-list', component: UsersList }
     ]
   },
-  { name: 'about', path: '/about', component: TheAbout }
+  { name: 'about', path: '/about', component: TheAbout },
+  { path: '/vuex', component: BaseVuex, children: [] },
+  { path: '/calendar', component: TheCalendar }
   // {
   //   path: '/about',
   //   name: 'about',

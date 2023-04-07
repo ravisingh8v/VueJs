@@ -6,7 +6,7 @@
       <button class="mx-2" @click="addUser">Add</button>
     </div>
     <div class="d-flex border w-25 p-4 d-flex justify-content-center">
-      <TransitionGroup tag="ul" name="list">
+      <transition-group tag="ul" name="list">
         <li
           class="p-2 text-center border"
           v-for="user of usersList"
@@ -15,12 +15,14 @@
         >
           {{ user }}
         </li>
-      </TransitionGroup>
+      </transition-group>
     </div>
   </section>
 </template>
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   data() {
     return {
       name: "",
@@ -35,9 +37,9 @@ export default {
       this.usersList.unshift(this.name);
     },
   },
-};
+});
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 ul {
   list-style: none;
   padding: 0;
@@ -45,21 +47,27 @@ ul {
 }
 .list-enter-from {
   opacity: 0;
+  transform: translateX(-200px);
 }
+
+.list-enter-to,
 .list-leave-from {
-  opacity: 1;
-}
-.list-enter-to {
+  transform: translateX(0);
   opacity: 1;
 }
 .list-leave-to {
   opacity: 0;
+  transform: translateX(200px);
 }
-.list-enter-active,
-.list-enter-leave {
-  transition: all 0.2s linear;
+.list-leave-active {
+  transition: transform opacity 0.3s linear;
+  position: absolute;
 }
-// .link-move {
-//   transition: transform 0.2s linear;
-// }
+.list-enter-active {
+  transition: transform opacity 0.3s linear;
+}
+.list-move {
+  transition: all 0.5s linear;
+  // position: absolute;
+}
 </style>

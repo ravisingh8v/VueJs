@@ -1,3 +1,3 @@
 <template>
-  <h1>The Home</h1>
+  <h1 class="text-center py-5 bg-secondary text-white">The Home</h1>
 </template>
