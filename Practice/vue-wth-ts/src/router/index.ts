@@ -12,7 +12,11 @@ import TheCalendar from './../components/TheCalendar.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: 'home',
+    redirect: '/calendar',
+  },
+  {
+    path: '/calendar/:id',
+    component: TheCalendar
   },
   { path: '/home', component: TheHome },
   {

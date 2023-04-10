@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <header class="p-3 border shadow-sm d-flex justify-content-between">
+  <section class="h-100 d-flex flex-column">
+    <header class="p-3 shadow-sm d-flex justify-content-between">
       <div class="header_left_content d-flex align-items-center">
         <!-- hamburger menu icon  -->
         <div class="d-flex align-items-center">
@@ -23,12 +23,27 @@
         <div
           class="d-flex align-items-center text-dark text-opacity-75 fw-normal"
         >
-          <span class="border p-1 rounded me-3">Today</span>
-          <span class="material-symbols-outlined fs-5"> arrow_back_ios </span>
-          <span class="material-symbols-outlined fs-5">
+          <RouterLink
+            class="text-dark text-opacity-75 border p-1 rounded me-3 text-decoration-none"
+            to="/calendar"
+            @click="refreshDate"
+            >Today</RouterLink
+          >
+          <button
+            class="text-dark text-opacity-75 btn material-symbols-outlined fs-5"
+            @click="prev"
+          >
+            arrow_back_ios
+          </button>
+          <button
+            class="text-dark text-opacity-75 btn material-symbols-outlined fs-5"
+            @click="next"
+          >
             arrow_forward_ios
-          </span>
-          <span class="text-dark text-opacity-75 fs-5 ms-3">April 2023</span>
+          </button>
+          <span class="text-dark text-opacity-75 fs-5 ms-3">{{
+            currentMonthYear
+          }}</span>
         </div>
       </div>
       <!-- header right side content  -->
@@ -49,6 +64,185 @@
         </div>
       </div>
     </header>
-    <main></main>
+    <main class="border d-flex flex-column flex-grow-1">
+      <div class="mt-4 h-100 d-flex flex-column">
+        <!-- action bar  -->
+        <div
+          class="mx-3 d-flex justify-content-between align-items-center text-dark text-opacity-75 fw-normal"
+        >
+          <div>
+            <h3>{{ currentMonthYear }}</h3>
+          </div>
+          <!-- button for changing months  -->
+          <div class="">
+            <button
+              @click="prev"
+              class="text-dark text-opacity-75 btn fs-1 mx-2"
+            >
+              &lt;
+            </button>
+            <button
+              @click="next"
+              class="text-dark text-opacity-75 btn fs-1 mx-2"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+        <section
+          class="mt-3 d-flex flex-column flex-grow-1 overflow-auto position-relative border"
+        >
+          <!-- weeks -->
+          <div class="position-sticky top-0 w-100">
+            <ul class="weeks row g-0">
+              <li
+                class="col-md-1 text-center py-3 bg-primary text-white border-bottom border-end"
+                v-for="week in weeks"
+                :key="week"
+              >
+                {{ week }}
+              </li>
+            </ul>
+          </div>
+          <!-- days -->
+          <div class="flex-grow-1">
+            <ul
+              class="days weeks row g-0 justify-content-start align-items-start h-100"
+            >
+              <!-- :class="{ 'h-100': !(lastDateOfMonth.length <= 28) }" -->
+              <li
+                class="col-md-1 text-center py-5 bg-light text-secondary text-opacity-50 border-bottom border-end"
+                v-for="lastDate in lastDateOfLastMonth"
+                :key="lastDate"
+              >
+                {{ lastDate }}
+              </li>
+              <li
+                class="col-md-1 text-center py-5 border-bottom border-end"
+                v-for="date in lastDateOfMonth"
+                :key="date"
+                :class="{
+                  'bg-primary text-white':
+                    currentDate === date &&
+                    currentMonth === activeMonth &&
+                    currentYear === activeYear,
+                }"
+              >
+                {{ date }}
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
   </section>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import { RouterLink } from "vue-router";
+
+export default defineComponent({
+  name: "TheCalendar",
+  data() {
+    return {
+      currentDate: new Date().getDate(),
+      currentMonthYear: "",
+      currentMonth: new Date().getMonth(),
+      activeMonth: new Date().getMonth(),
+      currentYear: new Date().getFullYear(),
+      activeYear: new Date().getFullYear(),
+
+      lastDateOfMonth: [0],
+      lastDateOfLastMonth: [0],
+      months: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      weeks: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    };
+  },
+  methods: {
+    showingCalendar() {
+      console.log(this.currentDate);
+
+      // getting current month and year here for showing in a Dom
+      this.currentMonthYear = `${this.months[this.currentMonth]} - ${
+        this.currentYear
+      }`;
+
+      // first day of month
+      let firstDayOfMonth = new Date(
+        this.currentYear,
+        this.currentMonth,
+        1
+      ).getDay();
+
+      // for getting last day of month
+      let lastDateOfMonth = new Date(
+        this.currentYear,
+        this.currentMonth + 1,
+        0
+      ).getDate();
+
+      // last date of las month
+      let lastDateOfLastMonth = new Date(
+        this.currentYear,
+        this.currentMonth,
+        0
+      ).getDate();
+
+      // getting here previous date to show in active month
+      let previousMonthDates = [];
+      for (let i = firstDayOfMonth; i > 0; i--) {
+        previousMonthDates.push(lastDateOfLastMonth - i + 1);
+      }
+      this.lastDateOfLastMonth = previousMonthDates;
+
+      // looping after getting months last day
+      let dates = [];
+      for (let i = 1; i <= lastDateOfMonth; i++) {
+        dates.push(i);
+      }
+      this.lastDateOfMonth = dates;
+    },
+    prev() {
+      if (this.currentMonth <= 0) {
+        this.currentMonth = 12;
+        this.currentYear -= 1;
+      }
+      this.currentMonth = this.currentMonth - 1;
+      this.showingCalendar();
+      this.$router.push("/calendar/" + this.currentMonthYear);
+    },
+    next() {
+      if (this.currentMonth >= 11) {
+        this.currentMonth = -1;
+        this.currentYear += 1;
+      }
+      this.currentMonth = this.currentMonth + 1;
+      this.showingCalendar();
+      this.$router.push("/calendar/" + this.currentMonthYear);
+    },
+
+    refreshDate() {
+      this.currentYear = new Date().getFullYear();
+      this.currentMonth = new Date().getMonth();
+      this.showingCalendar();
+    },
+  },
+  created() {
+    this.showingCalendar();
+  },
+  components: { RouterLink },
+});
+</script>

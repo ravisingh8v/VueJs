@@ -1,15 +1,15 @@
 <template>
-  <header>
+  <!-- <header>
     <TheHeader></TheHeader>
-  </header>
-  <main>
+  </header> -->
+  <main class="h-100 overflow-hidden">
     <router-view />
   </main>
 </template>
 <script lang="ts">
-import TheHeader from "./components/navbar/TheHeader.vue";
+// import TheHeader from "./components/navbar/TheHeader.vue";
 export default {
-  components: { TheHeader },
+  // components: { TheHeader },
 };
 </script>
 
