@@ -42,7 +42,7 @@
             arrow_forward_ios
           </button>
           <span class="text-dark text-opacity-75 fs-5 ms-3">{{
-            currentMonthYear
+            currentMonthAndYear
           }}</span>
         </div>
       </div>
@@ -64,14 +64,14 @@
         </div>
       </div>
     </header>
-    <main class="border d-flex flex-column flex-grow-1">
-      <div class="mt-4 h-100 d-flex flex-column">
+    <main class="border d-flex flex-column flex-grow-1 overflow-hidden">
+      <div class="pt-4 h-100 d-flex flex-column">
         <!-- action bar  -->
         <div
           class="mx-3 d-flex justify-content-between align-items-center text-dark text-opacity-75 fw-normal"
         >
           <div>
-            <h3>{{ currentMonthYear }}</h3>
+            <h3>{{ currentMonthAndYear }}</h3>
           </div>
           <!-- button for changing months  -->
           <div class="">
@@ -105,7 +105,7 @@
             </ul>
           </div>
           <!-- days -->
-          <div class="flex-grow-1">
+          <div class="d-flex flex-column flex-grow-1">
             <ul
               class="days weeks row g-0 justify-content-start align-items-start h-100"
             >
@@ -127,6 +127,7 @@
                     currentMonth === activeMonth &&
                     currentYear === activeYear,
                 }"
+                @click="gettingUserClickedData(date, currentMonth, currentYear)"
               >
                 {{ date }}
               </li>
@@ -146,7 +147,7 @@ export default defineComponent({
   data() {
     return {
       currentDate: new Date().getDate(),
-      currentMonthYear: "",
+      currentMonthAndYear: "",
       currentMonth: new Date().getMonth(),
       activeMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
@@ -176,7 +177,7 @@ export default defineComponent({
       console.log(this.currentDate);
 
       // getting current month and year here for showing in a Dom
-      this.currentMonthYear = `${this.months[this.currentMonth]} - ${
+      this.currentMonthAndYear = `${this.months[this.currentMonth]} - ${
         this.currentYear
       }`;
 
@@ -204,7 +205,8 @@ export default defineComponent({
       // getting here previous date to show in active month
       let previousMonthDates = [];
       for (let i = firstDayOfMonth; i > 0; i--) {
-        previousMonthDates.push(lastDateOfLastMonth - i + 1);
+        previousMonthDates.unshift(lastDateOfLastMonth);
+        lastDateOfLastMonth--;
       }
       this.lastDateOfLastMonth = previousMonthDates;
 
@@ -222,7 +224,7 @@ export default defineComponent({
       }
       this.currentMonth = this.currentMonth - 1;
       this.showingCalendar();
-      this.$router.push("/calendar/" + this.currentMonthYear);
+      this.$router.push("/calendar/" + this.currentMonthAndYear);
     },
     next() {
       if (this.currentMonth >= 11) {
@@ -231,13 +233,21 @@ export default defineComponent({
       }
       this.currentMonth = this.currentMonth + 1;
       this.showingCalendar();
-      this.$router.push("/calendar/" + this.currentMonthYear);
+      this.$router.push("/calendar/" + this.currentMonthAndYear);
     },
 
     refreshDate() {
       this.currentYear = new Date().getFullYear();
       this.currentMonth = new Date().getMonth();
       this.showingCalendar();
+    },
+
+    gettingUserClickedData(
+      date: number,
+      currentMonth: number,
+      currentYear: number
+    ) {
+      console.log(date, currentMonth, currentYear);
     },
   },
   created() {
