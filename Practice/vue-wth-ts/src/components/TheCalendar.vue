@@ -64,77 +64,70 @@
         </div>
       </div>
     </header>
-    <main class="border d-flex flex-column flex-grow-1 overflow-hidden">
-      <div class="pt-4 h-100 d-flex flex-column">
-        <!-- action bar  -->
-        <div
-          class="mx-3 d-flex justify-content-between align-items-center text-dark text-opacity-75 fw-normal"
-        >
-          <div>
-            <h3>{{ currentMonthAndYear }}</h3>
-          </div>
-          <!-- button for changing months  -->
-          <div class="">
-            <button
-              @click="prev"
-              class="text-dark text-opacity-75 btn fs-1 mx-2"
-            >
-              &lt;
-            </button>
-            <button
-              @click="next"
-              class="text-dark text-opacity-75 btn fs-1 mx-2"
-            >
-              &gt;
-            </button>
-          </div>
+    <main class="border pt-4 d-flex flex-column flex-grow-1 overflow-hidden">
+      <!-- <div class="pt-4 h-100 d-flex flex-column"> -->
+      <!-- action bar  -->
+      <div
+        class="mx-3 d-flex justify-content-between align-items-center text-dark text-opacity-75 fw-normal"
+      >
+        <div>
+          <h3>{{ currentMonthAndYear }}</h3>
         </div>
-        <section
-          class="mt-3 d-flex flex-column flex-grow-1 overflow-auto position-relative border"
-        >
-          <!-- weeks -->
-          <div class="position-sticky top-0 w-100">
-            <ul class="weeks row g-0">
-              <li
-                class="col-md-1 text-center py-3 bg-primary text-white border-bottom border-end"
-                v-for="week in weeks"
-                :key="week"
-              >
-                {{ week }}
-              </li>
-            </ul>
-          </div>
-          <!-- days -->
-          <div class="d-flex flex-column flex-grow-1">
-            <ul
-              class="days weeks row g-0 justify-content-start align-items-start h-100"
-            >
-              <!-- :class="{ 'h-100': !(lastDateOfMonth.length <= 28) }" -->
-              <li
-                class="col-md-1 text-center py-5 bg-light text-secondary text-opacity-50 border-bottom border-end"
-                v-for="lastDate in lastDateOfLastMonth"
-                :key="lastDate"
-              >
-                {{ lastDate }}
-              </li>
-              <li
-                class="col-md-1 text-center py-5 border-bottom border-end"
-                v-for="date in lastDateOfMonth"
-                :key="date"
-                :class="{
-                  'bg-primary text-white':
-                    currentDate === date &&
-                    currentMonth === activeMonth &&
-                    currentYear === activeYear,
-                }"
-                @click="gettingUserClickedData(date, currentMonth, currentYear)"
-              >
-                {{ date }}
-              </li>
-            </ul>
-          </div>
-        </section>
+        <!-- button for changing months  -->
+        <div class="">
+          <button @click="prev" class="text-dark text-opacity-75 btn fs-1 mx-2">
+            &lt;
+          </button>
+          <button @click="next" class="text-dark text-opacity-75 btn fs-1 mx-2">
+            &gt;
+          </button>
+        </div>
       </div>
+      <section
+        class="mt-3 d-flex flex-column flex-grow-1 overflow-auto position-relative border"
+      >
+        <!-- weeks -->
+        <div class="position-sticky top-0 w-100">
+          <ul class="weeks row g-0">
+            <li
+              class="col-md-1 text-center py-3 bg-primary text-white border-bottom border-end"
+              v-for="week in weeks"
+              :key="week"
+            >
+              {{ week }}
+            </li>
+          </ul>
+        </div>
+        <!-- days -->
+        <div class="d-flex flex-column flex-grow-1">
+          <ul
+            class="days weeks row g-0 justify-content-start align-items-start h-100"
+          >
+            <!-- :class="{ 'h-100': !(lastDateOfMonth.length <= 28) }" -->
+            <li
+              class="col-md-1 text-center py-5 bg-light text-secondary text-opacity-50 border-bottom border-end"
+              v-for="lastDate in lastDateOfLastMonth"
+              :key="lastDate"
+            >
+              {{ lastDate }}
+            </li>
+            <li
+              class="col-md-1 text-center py-5 border-bottom border-end"
+              v-for="date in lastDateOfMonth"
+              :key="date"
+              :class="{
+                'bg-primary text-white':
+                  currentDate === date &&
+                  currentMonth === activeMonth &&
+                  currentYear === activeYear,
+              }"
+            >
+              {{ date }}
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- </div> -->
     </main>
   </section>
 </template>
@@ -143,14 +136,19 @@ import { defineComponent } from "vue";
 import { RouterLink } from "vue-router";
 
 export default defineComponent({
+  setup() {
+    return {};
+  },
   name: "TheCalendar",
   data() {
     return {
-      currentDate: new Date().getDate(),
       currentMonthAndYear: "",
+      currentDate: new Date().getDate(),
       currentMonth: new Date().getMonth(),
-      activeMonth: new Date().getMonth(),
       currentYear: new Date().getFullYear(),
+
+      // to highlight the current date
+      activeMonth: new Date().getMonth(),
       activeYear: new Date().getFullYear(),
 
       lastDateOfMonth: [0],
@@ -235,19 +233,11 @@ export default defineComponent({
       this.showingCalendar();
       this.$router.push("/calendar/" + this.currentMonthAndYear);
     },
-
+    // redirect to the current date
     refreshDate() {
       this.currentYear = new Date().getFullYear();
       this.currentMonth = new Date().getMonth();
       this.showingCalendar();
-    },
-
-    gettingUserClickedData(
-      date: number,
-      currentMonth: number,
-      currentYear: number
-    ) {
-      console.log(date, currentMonth, currentYear);
     },
   },
   created() {
