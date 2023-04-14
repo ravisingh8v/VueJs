@@ -2,8 +2,8 @@
   <header>
     <nav class="d-flex justify-content-between align-items-center bg-dark p-3">
       <h1>
-        <base-button to="/" link mode="fs-2 text-decoration-none text-warning"
-          >Find a Coach</base-button
+        <router-link to="/" class="fs-2 text-decoration-none text-warning"
+          >Find a Coach</router-link
         >
       </h1>
       <ul class="d-flex list-unstyled p-0 m-0">

@@ -15,10 +15,11 @@
           >Contact</base-button
         >
       </div>
+      <div>
+        <RouterView></RouterView>
+      </div>
     </base-card>
-    <!-- <div class="mt-3" v-if="selectedCoach">
-      <base-card pad="p-2"> <RouterView></RouterView></base-card>
-    </div> -->
+
     <div class="mt-3">
       <base-card pad="p-4">
         <h5>
@@ -55,6 +56,9 @@ export default {
     },
     rate() {
       return this.selectedCoach.hourlyRate;
+    },
+    isContact() {
+      return console.log(this.$route.path.includes("contact"));
     },
   },
   created() {
