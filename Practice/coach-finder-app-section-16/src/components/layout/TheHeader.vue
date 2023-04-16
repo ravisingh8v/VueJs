@@ -21,9 +21,14 @@
     </nav>
   </header>
 </template>
-<style scoped>
+<style >
 .active {
   background-color: #0d6efd;
   border: inherit;
+}
+header{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 </style>

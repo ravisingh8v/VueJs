@@ -109,7 +109,16 @@ menu {
   opacity: 0;
   transform: scale(0.8);
 }
-.dialog-enter-active {
-  transition: all 0.2s linear;
+.dialog-enter-to,
+.dialog-leave-from{
+  opacity: 1;
+  transform: scale(1);
+}
+.dialog-enter-active{
+  transition: all 0.2s ease-out;
+}
+
+.dialog-leave-active {
+  transition: all 0.2s ease-in;
 }
 </style>

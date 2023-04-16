@@ -29,7 +29,7 @@ export default {
       return;
     }
     const response = await fetch(
-      "https://coachfinderwebapp-default-rtdb.firebaseio.com/coaches.jso"
+      "https://coachfinderwebapp-default-rtdb.firebaseio.com/coaches.json "
     );
     const responseData = await response.json();
     if (!response.ok) {

@@ -1,43 +1,45 @@
 <template>
-  <base-dialog
+  <section>
+
+    <base-dialog
     :show="!!error"
     title="An Error occurred!!!"
     @close="handleError"
   >
-    <p>{{ error }}</p></base-dialog
+  <p>{{ error }}</p></base-dialog
   >
   <section class="p-3 border mx-auto d-flex flex-column align-items-center">
     <section class="w-75 my-2">
       <coachFilter @change-filter="setFilter"></coachFilter>
     </section>
     <base-card pad="p-4 w-75 border">
-      <div class="pt-3">
+    <div class="pt-3">
         <!-- class="btn btn-success me-2" -->
         <base-button
-          mode="btn-outline-success 
+        mode="btn-outline-success 
         me-2"
-          @click="loadCoaches(true)"
-          link
-          :to="'/coaches'"
-          >Refresh</base-button
+        @click="loadCoaches(true)"
+        link
+        :to="'/coaches'"
+        >Refresh</base-button
         >
         <base-button
-          v-if="!isCoach && !isLoading"
-          mode="btn-primary ms-2"
-          link
-          to="/register"
-          >Register a Coach</base-button
+        v-if="!isCoach && !isLoading"
+        mode="btn-primary ms-2"
+        link
+        to="/register"
+        >Register a Coach</base-button
         >
       </div>
       <div v-if="isLoading">
         <base-spinner></base-spinner>
       </div>
-
+      
       <ul v-else-if="hasCoaches" class="pt-3 list-unstyled">
         <coachItem
-          v-for="coach in coachesList"
-          :key="coach.id"
-          :id="coach.id"
+        v-for="coach in coachesList"
+        :key="coach.id"
+        :id="coach.id"
           :first-name="coach.firstName"
           :last-name="coach.lastName"
           :rate="coach.hourlyRate"
@@ -47,6 +49,7 @@
       <h3 v-else>no data found</h3>
     </base-card>
   </section>
+</section>
 </template>
 <script>
 import coachItem from "./../../components/coaches/coachItem.vue";
