@@ -110,11 +110,11 @@ menu {
   transform: scale(0.8);
 }
 .dialog-enter-to,
-.dialog-leave-from{
+.dialog-leave-from {
   opacity: 1;
   transform: scale(1);
 }
-.dialog-enter-active{
+.dialog-enter-active {
   transition: all 0.2s ease-out;
 }
 

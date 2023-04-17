@@ -1,6 +1,8 @@
 export default {
+  // to register new coach in server and send data with this method
   async registerCoach(context, payload) {
     // const coachId = context.rootGetters.userId;
+    // here we sending id manually with rootGetter
     const coachData = {
       id: context.rootGetters.userId,
       firstName: payload.first,
@@ -9,9 +11,10 @@ export default {
       hourlyRate: payload.rate,
       areas: payload.areas,
     };
-
+    const token = context.rootGetters.token;
     const response = await fetch(
-      `https://coachfinderwebapp-default-rtdb.firebaseio.com/coaches/${coachData.id}.json`,
+      `https://coachfinderwebapp-default-rtdb.firebaseio.com/coaches/${coachData.id}.json?auth=` +
+        token,
       {
         method: "PUT",
         body: JSON.stringify(coachData),
@@ -24,6 +27,8 @@ export default {
     // await console.log(responseData);
     context.commit("registerCoach", coachData);
   },
+
+  // to getting all data from the server
   async loadCoaches(context, payload) {
     if (!payload.forceRefresh && !context.getters.shouldUpdate) {
       return;

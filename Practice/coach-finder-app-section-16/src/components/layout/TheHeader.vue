@@ -12,21 +12,47 @@
             >Coach List</base-button
           >
         </li>
-        <li class="mx-2">
+        <li class="mx-2" v-if="!isLoggedIn && !isAuthRoute">
+          <base-button mode="btn-primary" link to="/auth">Login</base-button>
+        </li>
+        <li class="mx-2" v-if="isLoggedIn">
           <base-button mode="btn-secondary" link to="/requests"
             >Request</base-button
+          >
+        </li>
+        <li class="mx-2" v-if="isLoggedIn">
+          <base-button mode="btn-outline-danger" @click="logout"
+            >Logout</base-button
           >
         </li>
       </ul>
     </nav>
   </header>
 </template>
-<style >
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+    isAuthRoute() {
+      return this.$route.path.includes("auth");
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.replace("/coaches");
+    },
+  },
+};
+</script>
+<style>
 .active {
   background-color: #0d6efd;
   border: inherit;
 }
-header{
+header {
   position: sticky;
   top: 0;
   z-index: 1000;
