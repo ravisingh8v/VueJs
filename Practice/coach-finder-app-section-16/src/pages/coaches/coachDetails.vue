@@ -10,7 +10,7 @@
     </base-card>
     <base-card class="mt-3" pad="p-4">
       <span class="fw-bold fs-3">Interested? Reach Out Now!!!!!</span>
-      <div>
+      <div v-if="!isContact">
         <base-button link mode="btn-primary px-5 mt-3" :to="contactLink"
           >Contact</base-button
         >
@@ -58,7 +58,7 @@ export default {
       return this.selectedCoach.hourlyRate;
     },
     isContact() {
-      return console.log(this.$route.path.includes("contact"));
+      return this.$route.path.includes("contact");
     },
   },
   created() {

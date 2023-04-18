@@ -32,6 +32,7 @@ export default {
     );
     const responseData = await response.json();
 
+    console.log(token);
     if (!response.ok) {
       const error = new Error(
         responseData.message || "failed to fetch data !!!!"

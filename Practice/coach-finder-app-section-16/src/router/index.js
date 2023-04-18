@@ -1,14 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+/*
 // route components
+*/
 import coachList from "./../pages/coaches/coachList";
-import coachDetails from "./../pages/coaches/coachDetails";
-import contactCoach from "./../pages/requests/contactCoach";
-import coachRegister from "./../pages/coaches/coachRegister";
-import requestsReceived from "./../pages/requests/requestsReceived";
+// import coachDetails from "./../pages/coaches/coachDetails";
+// import contactCoach from "./../pages/requests/contactCoach";
+// import coachRegister from "./../pages/coaches/coachRegister";
+// import requestsReceived from "./../pages/requests/requestsReceived";
 import pageNotFound from "./../pages/pageNotFound";
-import userAuth from "./../pages/auth/userAuth";
+// import userAuth from "./../pages/auth/userAuth";
 import store from "@/store";
+
+/*
+// async component or lazy loaded component
+*/
+const coachDetails = () => import("./../pages/coaches/coachDetails");
+
+const contactCoach = () => import("./../pages/requests/contactCoach");
+
+const coachRegister = () => import("./../pages/coaches/coachRegister");
+
+const requestsReceived = () => import("./../pages/requests/requestsReceived");
+
+const userAuth = () => import("./../pages/auth/userAuth");
 
 // creating Router
 const router = createRouter({

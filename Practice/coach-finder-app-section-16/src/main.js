@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import App from "./App.vue";
 // files
 import router from "./router";
@@ -9,7 +9,12 @@ import baseCard from "./components/ui/baseCard";
 import baseButton from "./components/ui/baseButton";
 import baseBadge from "./components/ui/baseBadge";
 import baseSpinner from "./components/ui/baseSpinner";
-import baseDialog from "./components/ui/baseDialog";
+// import baseDialog from "./components/ui/baseDialog";
+
+// async or lazy loaded component
+const baseDialog = defineAsyncComponent(() =>
+  import("./components/ui/baseDialog")
+);
 
 // created App here
 const app = createApp(App);
