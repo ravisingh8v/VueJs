@@ -1,31 +1,41 @@
 <template>
-  <!-- <section> -->
-  <!-- <h2>{{ userName }}</h2>
-    <h3>{{ user.age }}</h3> -->
-  <!-- <p>{{ firstName.firstName || "not found" }}</p> -->
-  <!-- <input type="text" name="firstname" v-model="firstName" id="" /> -->
-  <!-- @input="setFirstName" -->
-  <!-- <input type="text" name="firstname" id="" v-model="lastName" /> -->
   <!-- @input="setLastName" -->
-  <!-- <button @click="setAge">Change Age</button> -->
-  <!-- </section> -->
+  <!-- @input="setFirstName" -->
   <section>
-    <RouterView></RouterView>
+    <userData
+      :firstName="firstName"
+      :lastName="lastName"
+      @check="check"
+    ></userData>
+    <p>{{ firstName.firstName || "not found" }}</p>
+    <input type="text" name="firstname" v-model="firstName" id="" />
+    <input type="text" name="firstname" id="" ref="lastNameInput" />
+    <button @click="setLastName">Set Last Name</button>
+    <button @click="setAge">Change Age</button>
   </section>
+  <!-- <section>
+    <RouterView></RouterView>
+  </section> -->
 </template>
 
 <script>
-import { reactive, computed, ref, watch } from "vue";
-
+import { reactive, computed, ref, watch, provide } from "vue";
+import userData from "./components/userData.vue";
 export default {
   name: "App",
+  components: { userData },
+
+  // df
+
   setup() {
     const firstName = ref("");
     const lastName = ref("");
+    const lastNameInput = ref(null);
+    const age = ref(21);
     const user = reactive({
       firstName: "ef",
       lastName: "ef",
-      userName: "ravi",
+      // userName: "ravi",
       age: 21,
     });
     // const userRef = toRefs(user);
@@ -36,6 +46,9 @@ export default {
     function setAge() {
       user.age += 1;
     }
+    function setLastName() {
+      lastName.value = lastNameInput.value.value;
+    }
     const userName = computed(() => {
       return firstName.value + " " + lastName.value;
     });
@@ -44,6 +57,13 @@ export default {
       console.log("old Age " + oldValues[0]);
       console.log("new Age" + newValues[1]);
     });
+
+    function check(value) {
+      console.log(value);
+    }
+    // check();
+
+    provide("userAge", age);
 
     // const userName = computed(() => {
     //   return user.firstName + " " + user.lastName;
@@ -62,8 +82,10 @@ export default {
       user: user,
       setAge: setAge,
       // setFirstName,
-      // setLastName,
+      setLastName,
+      lastNameInput,
       userName,
+      check,
     };
   },
   // data() {

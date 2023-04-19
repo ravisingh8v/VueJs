@@ -5,7 +5,7 @@ import assignment8 from "./../pages/assignment-8";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", redirect: "assignment8" },
+    // { path: "/", redirect: "assignment8" },
     { path: "/users", component: usersList },
     { path: "/assignment8", component: assignment8 },
   ],
