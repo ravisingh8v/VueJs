@@ -16,7 +16,7 @@ Vue.createApp({
   computed: {
     output() {
       if (this.result < 37) {
-        return "Not there yet";
+        return this.result;
       } else if (this.result === 37) {
         return this.result;
       } else if (this.result > 37) {

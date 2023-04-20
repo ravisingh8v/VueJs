@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { watch, computed, toRef } from "vue";
+import { watch, computed, toRefs } from "vue";
 import ProjectItem from "./ProjectItem.vue";
 import useSearch from "@/hooks/useSearch";
 
@@ -31,9 +31,9 @@ export default {
   },
   props: ["user"],
   setup(props) {
-    const { user } = toRef(props);
-    const projects = computed(() => {
-      return user ? user.projects : [];
+    const { user } = toRefs(props);
+    const projects = computed(function () {
+      return user.value ? user.value.projects : [];
     });
     const { enteredSearchTerm, availableItems, updateSearch } = useSearch(
       projects,
@@ -65,8 +65,7 @@ export default {
     watch(
       () => props.user,
       function () {
-        enteredSearchTerm.value = "";
-        console.log(projects);
+        updateSearch("");
       }
     );
     const hasProjects = computed(() => {

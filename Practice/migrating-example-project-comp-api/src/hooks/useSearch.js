@@ -15,17 +15,21 @@ export default function useSearch(items, searchProp) {
     }
     return users;
   });
-
   function updateSearch(val) {
     enteredSearchTerm.value = val;
   }
-  watch(enteredSearchTerm, function (val) {
-    setTimeout(() => {
-      if (val === enteredSearchTerm.value) {
-        activeSearchTerm.value = val;
-      }
-    }, 300);
-  });
+  watch(
+    enteredSearchTerm,
+    function (val, old) {
+      console.log(val, old);
+      setTimeout(() => {
+        if (val === enteredSearchTerm.value) {
+          activeSearchTerm.value = val;
+        }
+      }, 300);
+    },
+    { immediate: true }
+  );
 
   return {
     enteredSearchTerm,

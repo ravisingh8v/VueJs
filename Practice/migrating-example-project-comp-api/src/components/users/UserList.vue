@@ -26,9 +26,10 @@
 </template>
 
 <script>
-import { computed, ref, toRef } from "vue";
+import { toRefs } from "vue";
 import UserItem from "./UserItem.vue";
 import useSearch from "@/hooks/useSearch";
+import useSort from "@/hooks/useSort";
 
 export default {
   components: {
@@ -37,11 +38,13 @@ export default {
   props: ["users"],
 
   setup(props) {
-    const { users } = toRef(props);
+    const { users } = toRefs(props);
+
     const { enteredSearchTerm, availableItems, updateSearch } = useSearch(
       users,
       "fullName"
     );
+    const { sort, sorting, displayedUsers } = useSort(availableItems);
     // const z = { a: 1, b: 2, d: 3 };
     // const c = { ...z, d: 4, a: 0, b: 0 };
     // console.log(c);
@@ -71,28 +74,28 @@ export default {
     //   }, 300);
     // });
 
-    const sorting = ref(null);
+    // const sorting = ref(null);
 
-    function sort(mode) {
-      sorting.value = mode;
-      console.log(sorting.value);
-    }
-    const displayedUsers = computed(() => {
-      if (!sorting.value) {
-        return availableItems.value;
-      }
-      return availableItems.value.slice().sort((u1, u2) => {
-        if (sorting.value === "asc" && u1.fullName > u2.fullName) {
-          return 1;
-        } else if (sorting.value === "asc") {
-          return -1;
-        } else if (sorting.value === "desc" && u1.fullName > u2.fullName) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    });
+    // function sort(mode) {
+    //   sorting.value = mode;
+    //   console.log(sorting.value);
+    // }
+    // const displayedUsers = computed(() => {
+    //   if (!sorting.value) {
+    //     return availableItems.value;
+    //   }
+    //   return availableItems.value.slice().sort((u1, u2) => {
+    //     if (sorting.value === "asc" && u1.fullName > u2.fullName) {
+    //       return 1;
+    //     } else if (sorting.value === "asc") {
+    //       return -1;
+    //     } else if (sorting.value === "desc" && u1.fullName > u2.fullName) {
+    //       return -1;
+    //     } else {
+    //       return 1;
+    //     }
+    //   });
+    // });
 
     return {
       enteredSearchTerm,
