@@ -8,6 +8,8 @@ import UsersForm from './../components/users/UsersForm.vue'
 import UsersList from './../components/users/UsersList.vue'
 import BaseVuex from './../components/vuex/BaseVuex.vue'
 import TheCalendar from './../components/TheCalendar.vue'
+import useFormContainer from '../components/use-form/use-form-container/use-form-container.vue'
+import userListContainer from '../components/user-list/user-list-container/user-list-container.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -28,7 +30,10 @@ const routes: Array<RouteRecordRaw> = [
   },
   { name: 'about', path: '/about', component: TheAbout },
   { path: '/vuex', component: BaseVuex, children: [] },
-  { path: '/calendar', component: TheCalendar }
+  { path: '/calendar', component: TheCalendar },
+  { path: '/use-form', component: useFormContainer },
+  { path: '/user-list/:mode', component: useFormContainer },
+  { path: '/user-list', component: userListContainer },
   // {
   //   path: '/about',
   //   name: 'about',

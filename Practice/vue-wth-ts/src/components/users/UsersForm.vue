@@ -33,7 +33,7 @@
         <label for="phone">Phone Number</label>
         <Field
           name="phone"
-          type="text"
+          type="tel"
           class="form-control"
           :class="{ 'is-invalid': errors.phone }"
           id="phone"
@@ -104,10 +104,11 @@ export default {
     const schema = yup.object({
       name: yup.string().required("this required"),
       phone: yup
-        .number()
+        .string()
         .typeError("That doesn't look like a phone number")
-        .max(10)
-        .required(),
+        .required()
+        .min(1, "why")
+        .max(10),
       email: yup.string().email().required(),
     });
     return { schema };

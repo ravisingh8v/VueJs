@@ -3,7 +3,9 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     counter: 0,
-    isLogin: false
+    isLogin: false,
+    userList: [] as any,
+    currentUser: {}
   },
   getters: {
     finalResult(state) {
@@ -19,10 +21,15 @@ export default createStore({
       }
       return finalState
     },
-
+    userList(state) {
+      return state.userList
+    },
     userAuthenticated(state) {
       return state.isLogin
 
+    },
+    currentUser(state) {
+      return state.currentUser
     }
   },
   mutations: {
@@ -37,6 +44,12 @@ export default createStore({
 
     setAuthentication(state, payload) {
       state.isLogin = payload.isAuth
+    },
+    userList(state, payload) {
+      state.userList.push(payload)
+    },
+    currentUser(state, payload) {
+      state.currentUser = payload
     }
   },
 
@@ -60,6 +73,14 @@ export default createStore({
     },
     logout(context) {
       context.commit('setAuthentication', { isAuth: false })
+    },
+    getUserList(context, payload) {
+      context.commit('userList', payload)
+      console.log('this is payload', payload);
+
+    },
+    currentUser(context, payload) {
+      context.commit('currentUser', payload)
     }
   },
   modules: {

@@ -28,6 +28,12 @@
             <RouterLink to="/calendar" class="nav-link">Calendar</RouterLink>
           </li>
           <li class="nav-item">
+            <RouterLink to="/use-form" class="nav-link">Use Form</RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink to="/user-list" class="nav-link">User List</RouterLink>
+          </li>
+          <li class="nav-item">
             <RouterLink to="/about" class="nav-link">About</RouterLink>
           </li>
         </ul>
